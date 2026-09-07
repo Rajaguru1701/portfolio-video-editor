@@ -36,7 +36,10 @@ jobs:
         run: npm ci
 
       - name: Build Angular for GitHub Pages
-        run: npx ng build --configuration production --base-href /${{ github.event.repository.name }}/
+        run: |
+          npx ng build --configuration production --base-href /${{ github.event.repository.name }}/
+          cp ./dist/portfolio/browser/index.html ./dist/portfolio/browser/404.html
+          touch ./dist/portfolio/browser/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
