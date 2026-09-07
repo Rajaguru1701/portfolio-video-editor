@@ -8,6 +8,30 @@ export class UiService {
   toastMessage = signal<string | null>(null);
   isAppreciated = signal(false);
   likesCount = signal(142);
+  activePlayingVideo = signal<HTMLVideoElement | null>(null);
+
+  pauseAllVideos(except?: HTMLVideoElement) {
+    if (typeof document === 'undefined') return;
+    const videos = document.querySelectorAll('video');
+    videos.forEach(v => {
+      if (v !== except && !v.paused) {
+        try {
+          v.pause();
+        } catch (_) {}
+      }
+    });
+    if (!except) {
+      this.activePlayingVideo.set(null);
+    }
+  }
+
+  playOnly(videoEl: HTMLVideoElement) {
+    this.pauseAllVideos(videoEl);
+    this.activePlayingVideo.set(videoEl);
+    try {
+      videoEl.play().catch(() => {});
+    } catch (_) {}
+  }
 
   triggerJumpCut(callback?: () => void) {
     this.isShutterActive.set(true);

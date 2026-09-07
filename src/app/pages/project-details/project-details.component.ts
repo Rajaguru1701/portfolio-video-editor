@@ -10,6 +10,7 @@ import { MediaModalComponent } from '../../shared/components/media-modal/media-m
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { LoadingStateComponent } from '../../shared/components/loading-state/loading-state.component';
 import { CtaSectionComponent } from '../../shared/components/cta-section/cta-section.component';
+import { UiService } from '../../core/services/ui.service';
 
 @Component({
   selector: 'app-project-details',
@@ -31,6 +32,7 @@ export class ProjectDetailsComponent implements OnInit {
   private portfolioService = inject(PortfolioService);
   private titleService = inject(Title);
   private metaService = inject(Meta);
+  ui = inject(UiService);
 
   config = siteConfig;
   project: PortfolioProject | null = null;
@@ -90,6 +92,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   openMediaModal(project: PortfolioProject) {
+    this.ui.pauseAllVideos();
     this.activeModalProject = project;
     this.isModalOpen = true;
   }
@@ -97,5 +100,6 @@ export class ProjectDetailsComponent implements OnInit {
   closeMediaModal() {
     this.isModalOpen = false;
     this.activeModalProject = null;
+    this.ui.pauseAllVideos();
   }
 }

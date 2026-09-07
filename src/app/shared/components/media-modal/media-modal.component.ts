@@ -29,17 +29,21 @@ export class MediaModalComponent implements OnChanges, OnDestroy {
     if (changes['isOpen']) {
       if (this.isOpen) {
         document.body.style.overflow = 'hidden';
+        this.ui.pauseAllVideos();
       } else {
         document.body.style.overflow = '';
+        this.ui.pauseAllVideos();
       }
     }
   }
 
   ngOnDestroy() {
     document.body.style.overflow = '';
+    this.ui.pauseAllVideos();
   }
 
   closeModal() {
+    this.ui.pauseAllVideos();
     this.close.emit();
   }
 

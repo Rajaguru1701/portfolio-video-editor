@@ -68,17 +68,21 @@
           <div 
             class="video-card-item glass-card"
             (click)="openMediaModal(video)"
+            (mouseenter)="onVideoMouseEnter(videoEl)"
+            (mouseleave)="onVideoMouseLeave(videoEl)"
             role="button"
-            tabindex="0">
+            tabindex="0"
+            [attr.aria-label]="video.title">
             
             <div class="ratio-9-16-box">
               <video 
+                #videoEl
                 [src]="video.media" 
                 muted 
                 loop 
-                autoplay 
                 playsinline 
                 preload="metadata"
+                (play)="onVideoPlayed(videoEl)"
                 class="video-el">
               </video>
 
@@ -89,7 +93,7 @@
                 <h3 class="video-title-text">{{ video.title }}</h3>
               </div>
 
-              <div class="play-hover-btn">
+              <div class="play-hover-btn" [class.is-playing]="!videoEl.paused">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                   <polygon points="6 3 20 12 6 21 6 3"></polygon>
                 </svg>

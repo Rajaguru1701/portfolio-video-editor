@@ -21,7 +21,8 @@
 .video-modal-card {
   position: relative;
   width: 100%;
-  max-width: 380px;
+  max-width: min(380px, 94vw);
+  max-height: 92vh;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 18px;
   border: 1px solid rgba(16, 185, 129, 0.35);
@@ -31,13 +32,17 @@
   align-items: center;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   animation: popUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 }
 
 /* Image Card */
 .image-modal-card {
   position: relative;
   width: 100%;
-  max-width: 960px;
+  max-width: min(960px, 95vw);
   max-height: 92vh;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 18px;
@@ -47,6 +52,10 @@
   flex-direction: column;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   animation: popUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 }
 
 @keyframes popUp {
@@ -78,13 +87,21 @@
     background: none;
     border: none;
     color: #94a3b8;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 800;
     cursor: pointer;
     line-height: 1;
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
 
     &:hover {
       color: #0f172a;
+      background: #f1f5f9;
     }
   }
 }
@@ -93,7 +110,7 @@
   position: relative;
   aspect-ratio: 9 / 16;
   width: 100%;
-  max-height: 72vh;
+  max-height: min(65vh, 480px);
   background: #000000;
   border-radius: 14px;
   overflow: hidden;

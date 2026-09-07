@@ -70,11 +70,13 @@
         @if (project.type === 'video') {
           <div class="video-player-wrapper" [class.vertical]="project.aspectRatio === '9:16'">
             <video 
+              #featuredVideo
               [src]="project.media" 
               controls 
               playsinline 
               preload="metadata" 
               [poster]="project.thumbnail"
+              (play)="ui.pauseAllVideos(featuredVideo)"
               class="featured-video">
               Your browser does not support HTML5 video.
             </video>

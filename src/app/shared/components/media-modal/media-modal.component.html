@@ -16,11 +16,13 @@
 
         <div class="video-player-frame">
           <video 
+            #modalVideo
             [src]="project.media" 
             controls 
             autoplay 
             playsinline 
             preload="metadata"
+            (play)="ui.pauseAllVideos(modalVideo)"
             class="video-element">
             Your browser does not support HTML5 video.
           </video>

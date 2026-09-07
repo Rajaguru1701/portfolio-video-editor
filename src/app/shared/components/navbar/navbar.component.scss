@@ -67,12 +67,20 @@
       letter-spacing: -0.05em;
       color: #0f172a;
       line-height: 1.2;
+
+      @media (max-width: 480px) {
+        font-size: 12px;
+      }
     }
 
     .brand-sub {
       font-size: 11px;
       color: #64748b;
       font-weight: 500;
+
+      @media (max-width: 420px) {
+        display: none;
+      }
     }
   }
 }
@@ -123,6 +131,10 @@
   align-items: center;
   gap: 10px;
 
+  @media (max-width: 480px) {
+    gap: 6px;
+  }
+
   .icon-circle-btn {
     width: 36px;
     height: 36px;
@@ -141,6 +153,12 @@
       border-color: var(--neon-green);
       transform: scale(1.05);
     }
+
+    &.desktop-circle-btn {
+      @media (max-width: 680px) {
+        display: none;
+      }
+    }
   }
 
   .appreciate-top-btn {
@@ -157,6 +175,11 @@
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
     transition: all 0.2s ease;
+
+    @media (max-width: 480px) {
+      padding: 6px 12px;
+      font-size: 11px;
+    }
 
     &:hover {
       background: #0f172a;
@@ -189,6 +212,7 @@
   background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
   padding: 16px 24px;
+  animation: slideInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
   @media (min-width: 861px) {
     display: none;
@@ -213,4 +237,22 @@
       }
     }
   }
+
+  .mobile-drawer-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+
+    .btn-sm {
+      padding: 8px 12px;
+      font-size: 11px;
+    }
+  }
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

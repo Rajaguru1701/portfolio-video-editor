@@ -331,18 +331,21 @@
           <div 
             class="video-reel-card glass-card" 
             (click)="openMediaModal(video)"
+            (mouseenter)="onVideoMouseEnter(reelVideo)"
+            (mouseleave)="onVideoMouseLeave(reelVideo)"
             role="button"
             tabindex="0"
             [attr.aria-label]="video.title">
             
             <div class="video-ratio-box">
               <video 
+                #reelVideo
                 [src]="video.media" 
                 muted 
                 loop 
-                autoplay 
                 playsinline 
                 preload="metadata"
+                (play)="onVideoPlayed(reelVideo)"
                 class="reel-video-element">
               </video>
 
@@ -353,8 +356,8 @@
                 <p class="reel-name">{{ video.title }}</p>
               </div>
 
-              <!-- Center Play Icon Glow -->
-              <div class="center-play-badge">
+              <!-- Center Play / Playing Badge -->
+              <div class="center-play-badge" [class.is-playing]="!reelVideo.paused">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <polygon points="6 3 20 12 6 21 6 3"></polygon>
                 </svg>
