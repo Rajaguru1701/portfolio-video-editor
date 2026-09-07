@@ -1,0 +1,170 @@
+<div class="portfolio-page-root container">
+
+  <!-- Header -->
+  <div class="portfolio-top-bar">
+    <div>
+      <span class="badge-tab-tag">// SEPARATE MEDIA CHANNELS</span>
+      <h1 class="portfolio-main-title">
+        Creative Works & <span class="text-neon-green">Master Reels</span>
+      </h1>
+      <p class="portfolio-sub">
+        Explore individual high-retention 9:16 vertical video cuts and high-resolution graphic branding assets.
+      </p>
+    </div>
+
+    <!-- Live Search -->
+    <div class="search-input-wrap">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        placeholder="Filter by title, tag..." 
+        class="search-input" />
+      @if (searchQuery) {
+        <button (click)="searchQuery = ''" class="clear-btn">✕</button>
+      }
+    </div>
+  </div>
+
+  <!-- Channel Navigation Tabs -->
+  <div class="channel-tabs-bar">
+    <div class="glass-pill tab-pill-group">
+      <button 
+        (click)="setTab('videos')" 
+        class="tab-btn" 
+        [class.active]="activeTab() === 'videos'">
+        🎬 Video Editing (9:16 Reels) ({{ videoProjects.length }})
+      </button>
+      <button 
+        (click)="setTab('graphics')" 
+        class="tab-btn" 
+        [class.active]="activeTab() === 'graphics'">
+        🎨 Graphic Design (Masonry) ({{ graphicProjects.length }})
+      </button>
+      <button 
+        (click)="setTab('ui')" 
+        class="tab-btn" 
+        [class.active]="activeTab() === 'ui'">
+        📷 Photography & UI ({{ uiProjects.length }})
+      </button>
+      <button 
+        (click)="setTab('all')" 
+        class="tab-btn" 
+        [class.active]="activeTab() === 'all'">
+        ⚡ All Media
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= TAB 1: 9:16 VIDEO CUTS ================= -->
+  @if (activeTab() === 'videos' || activeTab() === 'all') {
+    <section class="gallery-block">
+      <div class="block-title-row">
+        <h2 class="block-heading">🎬 Commercial Video Editing (9:16 Ratio)</h2>
+        <span class="count-tag">{{ getFilteredVideos().length }} Cuts</span>
+      </div>
+
+      <div class="video-grid-6">
+        @for (video of getFilteredVideos(); track video.id) {
+          <div 
+            class="video-card-item glass-card"
+            (click)="openMediaModal(video)"
+            role="button"
+            tabindex="0">
+            
+            <div class="ratio-9-16-box">
+              <video 
+                [src]="video.media" 
+                muted 
+                loop 
+                autoplay 
+                playsinline 
+                preload="metadata"
+                class="video-el">
+              </video>
+
+              <span class="badge-ratio">9:16</span>
+
+              <div class="video-info-scrim">
+                <span class="video-file-tag">{{ video.id.split('-')[1] ? video.id.split('-')[1] + '.mp4' : 'MP4' }}</span>
+                <h3 class="video-title-text">{{ video.title }}</h3>
+              </div>
+
+              <div class="play-hover-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                </svg>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ================= TAB 2: GRAPHIC DESIGN MASONRY ================= -->
+  @if (activeTab() === 'graphics' || activeTab() === 'all') {
+    <section class="gallery-block">
+      <div class="block-title-row">
+        <h2 class="block-heading">🎨 Graphic Design & Brand Artwork (one to six)</h2>
+        <span class="count-tag">{{ getFilteredGraphics().length }} Images</span>
+      </div>
+
+      <div class="masonry-grid-col">
+        @for (item of getFilteredGraphics(); track item.id; let idx = $index) {
+          <div 
+            class="masonry-item glass-card"
+            (click)="openMediaModal(item)"
+            role="button"
+            tabindex="0">
+            
+            <div class="img-box">
+              <img [src]="item.media" [alt]="item.title" loading="lazy" class="art-img" />
+              <div class="art-hover-scrim">
+                <span class="art-num-tag">Item 0{{ idx + 1 }}</span>
+                <p class="art-hover-title">{{ item.title }}</p>
+              </div>
+            </div>
+
+            <div class="art-footer">
+              <span class="art-title">{{ item.title }}</span>
+              <span class="art-app text-neon-green">{{ item.tools ? item.tools[0] : 'Design' }} ↗</span>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ================= TAB 3: UI & PHOTOGRAPHY ================= -->
+  @if (activeTab() === 'ui' || activeTab() === 'all') {
+    <section class="gallery-block">
+      <div class="block-title-row">
+        <h2 class="block-heading">📷 UI Systems & Studio Photography</h2>
+        <span class="count-tag">{{ getFilteredUi().length }} Works</span>
+      </div>
+
+      <div class="ui-photo-grid">
+        @for (item of getFilteredUi(); track item.id) {
+          <div 
+            class="photo-card glass-card"
+            (click)="openMediaModal(item)"
+            role="button"
+            tabindex="0">
+            <img [src]="item.media" [alt]="item.title" class="photo-img" />
+            <div class="photo-footer">
+              <h4>{{ item.title }}</h4>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+</div>
+
+<!-- Reusable Media Lightbox Modal -->
+<app-media-modal
+  [project]="activeModalProject"
+  [isOpen]="isModalOpen"
+  (close)="closeMediaModal()">
+</app-media-modal>

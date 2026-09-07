@@ -1,0 +1,161 @@
+<app-page-header
+  eyebrow="// DEVELOPER UTILITY // STATIC WORKFLOW"
+  title="Content JSON Generator"
+  subtitle="Generate formatted JSON entries to manually paste into src/assets/data/portfolio.json. No backend or upload server is involved.">
+</app-page-header>
+
+<section class="section-padding">
+  <div class="container">
+    <!-- Notice Banner -->
+    <div class="helper-banner glass-panel">
+      <div class="banner-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+      </div>
+      <div class="banner-text">
+        <strong>Developer Content Helper Notice:</strong>
+        <p>This helper does <em>not</em> upload files to the server. Add your media files to <code>src/assets/images/</code> or <code>src/assets/videos/</code>, use this tool to build the JSON object, and copy-paste it into <code>src/assets/data/portfolio.json</code>.</p>
+      </div>
+    </div>
+
+    <div class="generator-grid">
+      <!-- Input Form -->
+      <div class="generator-form glass-panel">
+        <h3 class="form-title">Project Specifications</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Project Title</label>
+            <input type="text" [(ngModel)]="title" placeholder="e.g. Velocity Rush Reel" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select [(ngModel)]="category" class="form-select">
+              <option value="Video Editing">Video Editing</option>
+              <option value="Branding">Branding</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="Photography">Photography</option>
+              <option value="Motion Graphics">Motion Graphics</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Media Type</label>
+            <select [(ngModel)]="type" class="form-select">
+              <option value="video">Video (MP4 / WebM)</option>
+              <option value="image">Image (JPG / PNG / WebP)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Aspect Ratio</label>
+            <select [(ngModel)]="aspectRatio" class="form-select">
+              <option value="16:9">16:9 (Landscape / Cinema)</option>
+              <option value="9:16">9:16 (Vertical Reel / TikTok)</option>
+              <option value="1:1">1:1 (Square)</option>
+              <option value="4:5">4:5 (Portrait Feed)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Year</label>
+            <input type="number" [(ngModel)]="year" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Client (Optional)</label>
+            <input type="text" [(ngModel)]="client" placeholder="e.g. RedBull Racing" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Role</label>
+            <input type="text" [(ngModel)]="role" placeholder="e.g. Lead Colorist & Editor" class="form-input" />
+          </div>
+          @if (type === 'video') {
+            <div class="form-group">
+              <label class="form-label">Video Duration</label>
+              <input type="text" [(ngModel)]="duration" placeholder="e.g. 0:45" class="form-input" />
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Project Description</label>
+          <textarea [(ngModel)]="description" rows="3" placeholder="Overview of the visual project, goals, and results..." class="form-textarea"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Thumbnail Asset Path</label>
+            <input type="text" [(ngModel)]="thumbnail" placeholder="assets/thumbnails/my-project.jpg" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Media Asset Path</label>
+            <input type="text" [(ngModel)]="media" placeholder="assets/videos/my-project.mp4" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tools Used (comma separated)</label>
+          <input type="text" [(ngModel)]="tools" placeholder="Premiere Pro, DaVinci Resolve, After Effects" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tags (comma separated)</label>
+          <input type="text" [(ngModel)]="tags" placeholder="Video Editing, Sound Design, Automotive" class="form-input" />
+        </div>
+
+        <div class="checkbox-row">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="featured" />
+            <span>Mark as Featured Project (Show on Home Page)</span>
+          </label>
+        </div>
+
+        <button type="button" class="btn btn-primary generate-btn" (click)="generateJson()">
+          <span>Generate JSON Entry</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Output Code Preview -->
+      <div class="generator-output glass-panel">
+        <div class="output-header">
+          <span class="output-title">Generated JSON Snippet</span>
+          @if (generatedJson) {
+            <button type="button" class="btn btn-outline-accent copy-btn" (click)="copyJson()">
+              <span>{{ copied ? 'Copied to Clipboard!' : 'Copy JSON' }}</span>
+            </button>
+          }
+        </div>
+
+        @if (generatedJson) {
+          <pre class="json-preview"><code>{{ generatedJson }}</code></pre>
+          <div class="next-steps-card">
+            <h4>How to apply this:</h4>
+            <ol>
+              <li>Copy the code above.</li>
+              <li>Open <code>src/assets/data/portfolio.json</code> in your editor.</li>
+              <li>Add a comma after the previous item and paste this snippet.</li>
+              <li>Save file — Angular will instantly hot-reload!</li>
+            </ol>
+          </div>
+        } @else {
+          <div class="empty-preview">
+            <p>Fill out the fields on the left and click <strong>"Generate JSON Entry"</strong> to produce the configuration block.</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

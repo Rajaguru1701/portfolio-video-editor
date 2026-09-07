@@ -1,0 +1,68 @@
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.shutter-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--neon-green);
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .shutter-box {
+    background: #ffffff;
+    color: var(--neon-green);
+    font-weight: 900;
+    font-size: clamp(32px, 5.5vw, 64px);
+    padding: 16px 36px;
+    border: 4px solid #ffffff;
+    transform: rotate(-3deg);
+    box-shadow: 8px 8px 0px #0f172a;
+    text-transform: uppercase;
+    letter-spacing: -0.06em;
+  }
+}
+
+.floating-btn-wrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 900;
+}
+
+.floating-appreciate-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--neon-green);
+    transform: scale(1.1);
+  }
+
+  &.liked {
+    background: #e11d48;
+    transform: scale(1.15);
+  }
+}

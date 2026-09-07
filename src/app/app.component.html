@@ -1,0 +1,35 @@
+<!-- ================= JUMP-CUT HARD SHUTTER OVERLAY ================= -->
+<div id="jump-shutter" [class.shutter-active]="ui.isShutterActive()" class="shutter-overlay">
+  <div class="shutter-box">
+    // JUMP CUT ⚡
+  </div>
+</div>
+
+<!-- ================= TOAST NOTIFICATION ================= -->
+@if (ui.toastMessage(); as msg) {
+  <div class="toast-notice">
+    {{ msg }}
+  </div>
+}
+
+<!-- ================= MAIN APP LAYOUT ================= -->
+<div class="app-layout" [class.glitch-flash]="ui.isShutterActive()">
+  <app-navbar></app-navbar>
+
+  <main id="main-content" class="main-viewport">
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-footer></app-footer>
+
+  <!-- Floating Behance Appreciate Button -->
+  <div class="floating-btn-wrap">
+    <button 
+      (click)="ui.toggleAppreciate()" 
+      class="floating-appreciate-btn" 
+      [class.liked]="ui.isAppreciated()"
+      title="Appreciate this portfolio">
+      {{ ui.isAppreciated() ? '❤️' : '👍' }}
+    </button>
+  </div>
+</div>

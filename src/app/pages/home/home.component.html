@@ -1,0 +1,376 @@
+<div class="home-page-root">
+
+  <!-- ================= HERO WITH PORTRAIT BACKDROP ================= -->
+  <section class="hero-backdrop-section">
+    <!-- Big Portrait Backdrop -->
+    <img 
+      [src]="config.heroBg || config.avatar" 
+      alt="Hero Background" 
+      class="hero-portrait-img" />
+
+    <div class="hero-overlay-gradient"></div>
+
+    <div class="hero-headline-wrap container">
+      <h1 class="hero-headline">
+        PORT<span class="text-neon-green neon-text-glow">FOLIO</span>
+      </h1>
+      <div class="hero-pills-row">
+        <span class="hero-pill-badge">{{ config.creatorName }}</span>
+        <span class="hero-pill-badge text-neon-green">GRAPHIC DESIGNER & VIDEO EDITOR</span>
+      </div>
+    </div>
+
+    <!-- Scrim Transition to Profile Dashboard -->
+    <div class="white-fade-scrim-container">
+      <div class="container">
+        <div class="dashboard-grid">
+
+          <!-- ================= LEFT COLUMN: ABOUT US & PORTRAIT ================= -->
+          <div class="dash-col space-y-6">
+            <div class="glass-card dash-card">
+              <div class="card-head-row">
+                <span class="eyebrow-tag">// ABOUT ME</span>
+                <span class="pill-mini-loc">MADURAI, TN</span>
+              </div>
+              <p class="bio-text">
+                {{ config.bioSummary }}
+              </p>
+            </div>
+
+            <!-- Portrait Frame with REC HUD -->
+            <div class="portrait-hud-card group">
+              <div class="glow-underlay"></div>
+              <div class="hud-inner-frame">
+                <img 
+                  [src]="config.avatar" 
+                  [alt]="config.creatorName" 
+                  class="hud-img" />
+                <div class="hud-bar">
+                  <span class="rec-dot-box">
+                    <span class="red-pulse-dot"></span> REC
+                  </span>
+                  <span class="hud-spec">24 FPS // 4K MASTER</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= CENTER COLUMN: CONTACT, EDUCATION, TOOLS ================= -->
+          <div class="dash-col space-y-6">
+            <!-- Contact Card -->
+            <div class="glass-card dash-card">
+              <h3 class="dash-title">Contact</h3>
+              <ul class="contact-list">
+                <li>
+                  <span class="icon">📞</span>
+                  <a [href]="'tel:' + config.phone" class="link-bold">{{ config.phone }}</a>
+                </li>
+                <li>
+                  <span class="icon">📍</span>
+                  <span>{{ config.location }}</span>
+                </li>
+                <li>
+                  <span class="icon">✉️</span>
+                  <a [href]="'mailto:' + config.email" class="email-pill">{{ config.email }}</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Education Card -->
+            <div class="glass-card dash-card">
+              <h3 class="dash-title">Education</h3>
+              <div class="edu-items">
+                @for (edu of config.education; track edu.institution; let isLast = $last) {
+                  <div class="edu-row" [class.border-top]="!$first">
+                    <p class="edu-inst">{{ edu.institution }}</p>
+                    <p class="edu-course">{{ edu.course }}</p>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Software Tools Interactive Grid -->
+            <div class="glass-card dash-card">
+              <h3 class="dash-title">Tools & Software</h3>
+              <div class="tools-grid-6">
+                @for (tool of config.tools; track tool.code) {
+                  <div class="tool-tile" [title]="tool.name">
+                    {{ tool.code }}
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Expertise Pills -->
+            <div class="glass-card dash-card">
+              <h3 class="dash-title">Expertise</h3>
+              <div class="expertise-pills">
+                @for (exp of config.expertise; track exp) {
+                  <span class="exp-badge">{{ exp }}</span>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= RIGHT COLUMN: EXPERIENCES & FOCUS ================= -->
+          <div class="dash-col space-y-6">
+            <div class="glass-card dash-card">
+              <h3 class="dash-title">Experiences</h3>
+              <div class="timeline-trail">
+                @for (exp of config.experiences; track exp.title) {
+                  <div class="timeline-step">
+                    <span class="trail-bullet"></span>
+                    <span class="trail-tag">{{ exp.type }}</span>
+                    <h4 class="trail-inst">{{ exp.title }}</h4>
+                    <p class="trail-role">Position: {{ exp.role }}</p>
+
+                    @if (exp.bullets) {
+                      <ul class="trail-bullets">
+                        @for (bullet of exp.bullets; track bullet) {
+                          <li>{{ bullet }}</li>
+                        }
+                      </ul>
+                    }
+                    @if (exp.description) {
+                      <p class="trail-desc">{{ exp.description }}</p>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="glass-card dash-card">
+              <h3 class="dash-title">Creative Focus</h3>
+              <div class="focus-grid">
+                @for (f of config.creativeFocus; track f) {
+                  <p class="focus-item">✦ {{ f }}</p>
+                }
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= IN-PLACE JUMP CUT NAV BAR ================= -->
+  <div id="showcase-anchor" class="jump-nav-bar">
+    <div class="container flex-center">
+      <div class="glass-pill jump-pills-cluster">
+        <button 
+          (click)="jumpToSection('all')" 
+          class="btn-pill-filter"
+          [class.active]="activeSection() === 'all'">
+          🌟 All Disciplines
+        </button>
+        <button 
+          (click)="jumpToSection('logo')" 
+          class="btn-pill-filter"
+          [class.active]="activeSection() === 'logo'">
+          🏷️ Logo Design (4 Works)
+        </button>
+        <button 
+          (click)="jumpToSection('other')" 
+          class="btn-pill-filter"
+          [class.active]="activeSection() === 'other'">
+          🎨 Other Works (3 Posters)
+        </button>
+        <button 
+          (click)="jumpToSection('video')" 
+          class="btn-pill-filter"
+          [class.active]="activeSection() === 'video'">
+          🎬 Video Editing (9:16 Cuts)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SEPARATED SECTION 1: LOGO & BRAND IDENTITY (LOGO FOLDER) ================= -->
+  @if (activeSection() === 'all' || activeSection() === 'logo') {
+    <section id="section-logo" class="showcase-section container">
+      <div class="showcase-header">
+        <div>
+          <span class="tag-pill-badge">// FOLDER: LOGO DESIGN</span>
+          <h2 class="showcase-title">
+            Logo & Brand <span class="text-neon-green">Identity System</span>
+          </h2>
+          <p class="showcase-sub">
+            4 original brandmarks crafted in Adobe Illustrator — vector monograms, luxury serifs, corporate identities, and custom lettering.
+          </p>
+        </div>
+
+        <button routerLink="/contact" class="btn btn-secondary">
+          <span>Commission a Logo</span>
+          <span class="text-neon-green">→</span>
+        </button>
+      </div>
+
+      <!-- Logo Cards Grid (4 Columns) -->
+      <div class="logo-cards-grid">
+        @for (item of logoProjects; track item.id; let idx = $index) {
+          <div 
+            class="logo-card glass-card"
+            (click)="openMediaModal(item)"
+            role="button"
+            tabindex="0">
+            <!-- White Logo Preview Box -->
+            <div class="logo-preview-box">
+              <img 
+                [src]="item.media" 
+                [alt]="item.title" 
+                loading="lazy" 
+                class="logo-preview-img" />
+              <span class="logo-number-badge">
+                Logo 0{{ idx + 1 }}
+              </span>
+            </div>
+            <!-- Card Details -->
+            <div class="logo-info-box">
+              <div>
+                <span class="logo-type-tag">Illustrator Vector</span>
+                <h4 class="logo-card-title">{{ item.title }}</h4>
+                <p class="logo-card-desc">{{ item.description }}</p>
+              </div>
+              <div class="logo-card-foot">
+                <span class="tool-label">Illustrator ↗</span>
+                <span class="action-hint">Click to inspect</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ================= SEPARATED SECTION 2: OTHER WORKS / COMMERCIAL POSTERS (OTHER WORKS FOLDER) ================= -->
+  @if (activeSection() === 'all' || activeSection() === 'other') {
+    <section id="section-other" class="showcase-section container">
+      <div class="showcase-header">
+        <div>
+          <span class="tag-pill-badge">// FOLDER: OTHER WORKS</span>
+          <h2 class="showcase-title">
+            Commercial Posters & <span class="text-neon-green">Creative Campaigns</span>
+          </h2>
+          <p class="showcase-sub">
+            3 high-impact commercial projects from the Other Works collection — travel campaign compositing, festival 3D character art, and food advertising.
+          </p>
+        </div>
+
+        <button routerLink="/contact" class="btn btn-secondary">
+          <span>Inquire for Posters</span>
+          <span class="text-neon-green">→</span>
+        </button>
+      </div>
+
+      <!-- Other Works Grid (3 Columns) -->
+      <div class="other-works-grid">
+        @for (item of otherWorksProjects; track item.id; let idx = $index) {
+          <div 
+            class="other-work-card glass-card"
+            (click)="openMediaModal(item)"
+            role="button"
+            tabindex="0">
+            <!-- Poster Display -->
+            <div class="poster-display-box">
+              <img 
+                [src]="item.media" 
+                [alt]="item.title" 
+                loading="lazy" 
+                class="poster-img" />
+              <div class="poster-hover-scrim">
+                <span class="poster-tag">Key Visual 0{{ idx + 1 }}</span>
+                <p class="poster-tag-title">{{ item.title }}</p>
+              </div>
+            </div>
+            <!-- Card Details -->
+            <div class="poster-info-box">
+              <div>
+                <span class="poster-role-tag">{{ item.role }}</span>
+                <h4 class="poster-card-title">{{ item.title }}</h4>
+                <p class="poster-card-desc">{{ item.description }}</p>
+              </div>
+              <div class="poster-card-foot">
+                <div class="poster-tags-cluster">
+                  @for (t of item.tags.slice(0, 2); track t) {
+                    <span class="mini-badge">{{ t }}</span>
+                  }
+                </div>
+                <span class="inspect-link">Inspect ↗</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ================= SEPARATED SECTION 3: VIDEO EDITING (9:16 REELS) ================= -->
+  @if (activeSection() === 'all' || activeSection() === 'video') {
+    <section id="section-video" class="showcase-section container">
+      <div class="showcase-header">
+        <div>
+          <span class="tag-pill-badge">// SEPARATE DISCIPLINE: 9:16 REELS</span>
+          <h2 class="showcase-title">
+            Video Editing <span class="text-neon-green">Master Reel</span>
+          </h2>
+          <p class="showcase-sub">
+            All 6 commercial vertical cuts (9:16 ratio). Hover to preview reel cut, click to expand in full master player.
+          </p>
+        </div>
+
+        <button routerLink="/contact" class="btn btn-secondary">
+          <span>Inquire About Video Work</span>
+          <span class="text-neon-green">→</span>
+        </button>
+      </div>
+
+      <!-- 9:16 Reels Grid (6 Columns) -->
+      <div class="video-reels-grid">
+        @for (video of videoProjects; track video.id) {
+          <div 
+            class="video-reel-card glass-card" 
+            (click)="openMediaModal(video)"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="video.title">
+            
+            <div class="video-ratio-box">
+              <video 
+                [src]="video.media" 
+                muted 
+                loop 
+                autoplay 
+                playsinline 
+                preload="metadata"
+                class="reel-video-element">
+              </video>
+
+              <span class="ratio-indicator-pill">9:16</span>
+
+              <div class="reel-scrim-footer">
+                <span class="reel-tag">{{ video.id.split('-')[1] ? video.id.split('-')[1] + '.mp4' : 'REEL' }}</span>
+                <p class="reel-name">{{ video.title }}</p>
+              </div>
+
+              <!-- Center Play Icon Glow -->
+              <div class="center-play-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                </svg>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+</div>
+
+<!-- Reusable Media Lightbox Modal -->
+<app-media-modal
+  [project]="activeModalProject"
+  [isOpen]="isModalOpen"
+  (close)="closeMediaModal()">
+</app-media-modal>

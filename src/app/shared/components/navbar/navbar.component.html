@@ -1,0 +1,95 @@
+<header class="navbar-header">
+  <div class="container nav-inner">
+    <!-- Brand Avatar & Title -->
+    <a routerLink="/" class="nav-brand-btn" (click)="closeMobileMenu()">
+      <div class="avatar-ring-box">
+        <img 
+          [src]="config.avatar" 
+          [alt]="config.creatorName" 
+          class="avatar-photo" />
+        <span class="online-indicator"></span>
+      </div>
+      <div class="brand-titles">
+        <h1 class="brand-heading">
+          PORTFOLIO // <span class="text-neon-green">NALLAMUTHU M</span>
+        </h1>
+        <p class="brand-sub">{{ config.title }}</p>
+      </div>
+    </a>
+
+    <!-- Nav Links Center -->
+    <nav class="nav-center-links" aria-label="Main Navigation">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="center-link">
+        Home
+      </a>
+      <a routerLink="/portfolio" routerLinkActive="active" class="center-link">
+        Work & Reels
+      </a>
+      <a routerLink="/about" routerLinkActive="active" class="center-link">
+        About & Bio
+      </a>
+      <a routerLink="/contact" routerLinkActive="active" class="center-link">
+        Contact
+      </a>
+    </nav>
+
+    <!-- Behance Style Action Buttons -->
+    <div class="nav-actions-group">
+      <!-- Quick Email -->
+      <button (click)="quickContact()" class="icon-circle-btn" title="Quick Message">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+      </button>
+
+      <!-- Save to Moodboard -->
+      <button (click)="saveProject()" class="icon-circle-btn" title="Save to moodboard">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+        </svg>
+      </button>
+
+      <!-- Share -->
+      <button (click)="share()" class="icon-circle-btn" title="Share Portfolio">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+        </svg>
+      </button>
+
+      <!-- Appreciate Follow -->
+      <button (click)="ui.toggleAppreciate()" class="appreciate-top-btn" [class.active]="ui.isAppreciated()" title="Appreciate">
+        <span class="icon">{{ ui.isAppreciated() ? '❤️' : '+' }}</span>
+        <span class="count">{{ ui.likesCount() }}</span>
+      </button>
+
+      <!-- Mobile Toggle -->
+      <button type="button" class="mobile-menu-btn" (click)="toggleMobileMenu()" aria-label="Toggle Navigation">
+        @if (!mobileMenuOpen()) {
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        } @else {
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        }
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  @if (mobileMenuOpen()) {
+    <div class="mobile-nav-panel">
+      <nav class="mobile-nav-list">
+        <a routerLink="/" (click)="closeMobileMenu()" class="mobile-item">Home</a>
+        <a routerLink="/portfolio" (click)="closeMobileMenu()" class="mobile-item">Work & Reels</a>
+        <a routerLink="/about" (click)="closeMobileMenu()" class="mobile-item">About & Bio</a>
+        <a routerLink="/contact" (click)="closeMobileMenu()" class="mobile-item">Contact</a>
+        <a routerLink="/content-helper" (click)="closeMobileMenu()" class="mobile-item text-neon-green">Content Helper (Dev)</a>
+      </nav>
+    </div>
+  }
+</header>

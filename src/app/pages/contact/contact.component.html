@@ -1,0 +1,175 @@
+<app-page-header
+  eyebrow="// GET IN TOUCH // COLLABORATIONS"
+  title="Let’s Discuss Your Next Creative Project"
+  subtitle="Direct communication channels for commercial video editing, brand identity design, and color grading. Zero intermediaries.">
+</app-page-header>
+
+<section class="contact-section section-padding">
+  <div class="container">
+    <div class="contact-grid">
+      <!-- Direct Contact Channels Column -->
+      <div class="contact-channels-col">
+        <h2 class="col-heading">Direct Channels</h2>
+        <p class="col-desc">
+          Feel free to reach out directly via email, WhatsApp, or phone. All inquiries receive a response within 24 hours.
+        </p>
+
+        <!-- Email Card -->
+        <div class="channel-card glass-panel">
+          <div class="channel-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </div>
+          <div class="channel-info">
+            <span class="channel-label">Official Email</span>
+            <a [href]="'mailto:' + config.email" class="channel-value">{{ config.email }}</a>
+          </div>
+          <button type="button" class="copy-action-btn" (click)="copyEmailToClipboard()" [title]="copiedEmail ? 'Copied!' : 'Copy to clipboard'">
+            <span>{{ copiedEmail ? 'Copied!' : 'Copy' }}</span>
+          </button>
+        </div>
+
+        <!-- WhatsApp Card -->
+        @if (config.socials.whatsapp) {
+          <div class="channel-card glass-panel">
+            <div class="channel-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+            </div>
+            <div class="channel-info">
+              <span class="channel-label">Instant Message</span>
+              <span class="channel-value">WhatsApp Direct</span>
+            </div>
+            <a [href]="config.socials.whatsapp" target="_blank" rel="noopener noreferrer" class="btn btn-outline-accent channel-btn">
+              Chat Now
+            </a>
+          </div>
+        }
+
+        <!-- Phone Card -->
+        <div class="channel-card glass-panel">
+          <div class="channel-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div class="channel-info">
+            <span class="channel-label">Direct Phone</span>
+            <a [href]="'tel:' + config.phone" class="channel-value">{{ config.phone }}</a>
+          </div>
+          <a [href]="'tel:' + config.phone" class="btn btn-outline-accent channel-btn">
+            Call
+          </a>
+        </div>
+
+        <!-- Social Networks -->
+        <div class="socials-box">
+          <span class="socials-heading">Creative Networks & Profiles</span>
+          <div class="socials-links-grid">
+            @if (config.socials.instagram) {
+              <a [href]="config.socials.instagram" target="_blank" rel="noopener noreferrer" class="social-link-item glass-panel">
+                <span>Instagram</span>
+                <span class="arrow">↗</span>
+              </a>
+            }
+            @if (config.socials.behance) {
+              <a [href]="config.socials.behance" target="_blank" rel="noopener noreferrer" class="social-link-item glass-panel">
+                <span>Behance</span>
+                <span class="arrow">↗</span>
+              </a>
+            }
+            @if (config.socials.youtube) {
+              <a [href]="config.socials.youtube" target="_blank" rel="noopener noreferrer" class="social-link-item glass-panel">
+                <span>YouTube</span>
+                <span class="arrow">↗</span>
+              </a>
+            }
+            @if (config.socials.linkedin) {
+              <a [href]="config.socials.linkedin" target="_blank" rel="noopener noreferrer" class="social-link-item glass-panel">
+                <span>LinkedIn</span>
+                <span class="arrow">↗</span>
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Transparent Email Composer Form -->
+      <div class="contact-form-col">
+        <div class="form-wrapper glass-panel">
+          <h2 class="form-heading">Send a Message</h2>
+          <p class="form-subheading">
+            Compose your project brief below. Since this portfolio operates with <strong>zero backend / no database</strong>, submitting this form opens your email client directly with your draft ready to send.
+          </p>
+
+          <div class="zero-backend-notice">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>Notice: Submitting will launch your email app (mailto) with these details populated.</span>
+          </div>
+
+          <form (ngSubmit)="submitViaMailto()" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input 
+                  type="text" 
+                  [(ngModel)]="formName" 
+                  name="name"
+                  placeholder="e.g. Maya Lin" 
+                  required 
+                  class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input 
+                  type="email" 
+                  [(ngModel)]="formEmail" 
+                  name="email"
+                  placeholder="maya@company.com" 
+                  required 
+                  class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Subject / Project Category</label>
+              <input 
+                type="text" 
+                [(ngModel)]="formSubject" 
+                name="subject"
+                placeholder="e.g. Commercial Reel Editing // Summer Campaign" 
+                class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Project Details & Timeline</label>
+              <textarea 
+                [(ngModel)]="formMessage" 
+                name="message"
+                placeholder="Tell me about your footage, deliverables, music preferences, and delivery deadline..." 
+                rows="5" 
+                required 
+                class="form-textarea">
+              </textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit-btn">
+              <span>Open in Email App & Send</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

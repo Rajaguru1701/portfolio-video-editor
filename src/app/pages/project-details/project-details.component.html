@@ -1,0 +1,183 @@
+@if (isLoading) {
+  <div class="container section-padding">
+    <app-loading-state message="Loading project case study..."></app-loading-state>
+  </div>
+} @else if (projectNotFound || !project) {
+  <div class="container section-padding">
+    <app-empty-state
+      title="Project Not Found"
+      description="The requested project could not be found or has been moved. Check the URL or return to the portfolio."
+      actionLabel="← Back to Portfolio"
+      actionRoute="/portfolio">
+    </app-empty-state>
+  </div>
+} @else {
+  <!-- Project Hero & Metadata Header -->
+  <section class="project-header-section">
+    <div class="container">
+      <!-- Breadcrumb Navigation -->
+      <nav class="project-breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/portfolio" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Back to Portfolio</span>
+        </a>
+        <span class="crumb-separator">/</span>
+        <span class="crumb-current">{{ project.category }}</span>
+      </nav>
+
+      <div class="header-main">
+        <div class="header-pills">
+          <span class="badge-pill badge-pill-accent">{{ project.category }}</span>
+          <span class="badge-pill">{{ project.year }}</span>
+          @if (project.duration) {
+            <span class="badge-pill">Duration: {{ project.duration }}</span>
+          }
+        </div>
+
+        <h1 class="project-title">{{ project.title }}</h1>
+        <p class="project-headline">{{ project.description }}</p>
+      </div>
+
+      <!-- Project Metadata Grid -->
+      <div class="meta-spec-grid glass-panel">
+        <div class="spec-item">
+          <span class="spec-label">Client</span>
+          <span class="spec-value">{{ project.client || 'Personal / Spec Work' }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Role</span>
+          <span class="spec-value">{{ project.role || 'Creative Direction' }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Year</span>
+          <span class="spec-value">{{ project.year }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Medium</span>
+          <span class="spec-value">{{ project.type === 'video' ? 'Motion / Cinema Cut' : 'High-Res Stills' }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Showcase Media Stage -->
+  <section class="main-media-section">
+    <div class="container">
+      <div class="media-frame glass-panel">
+        @if (project.type === 'video') {
+          <div class="video-player-wrapper" [class.vertical]="project.aspectRatio === '9:16'">
+            <video 
+              [src]="project.media" 
+              controls 
+              playsinline 
+              preload="metadata" 
+              [poster]="project.thumbnail"
+              class="featured-video">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+        } @else {
+          <div class="image-viewer-wrapper" (click)="openMediaModal(project)">
+            <img 
+              [src]="project.media" 
+              [alt]="project.title" 
+              class="featured-image" />
+            <div class="image-zoom-hint">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span>Click for Fullscreen View</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Breakdown / Story & Tools -->
+  <section class="breakdown-section">
+    <div class="container">
+      <div class="breakdown-grid">
+        <div class="story-column">
+          <span class="section-eyebrow">// PROJECT OVERVIEW</span>
+          <h2 class="breakdown-title">The Creative Execution</h2>
+          <div class="story-content">
+            <p>
+              Designed and edited specifically to establish an arresting visual presence, this project balances deliberate timing with meticulous audio-visual harmony. Every visual frame was treated to emphasize depth, tactile texture, and emotional engagement.
+            </p>
+            <p>
+              By leveraging specialized color grading workflows in DaVinci Resolve alongside dynamic motion pacing, the piece achieves a cohesive editorial tone that elevates the client's core narrative.
+            </p>
+          </div>
+        </div>
+
+        <div class="tools-column glass-panel">
+          <h3 class="tools-heading">Production Stack</h3>
+          @if (project.tools && project.tools.length > 0) {
+            <ul class="tools-list">
+              @for (tool of project.tools; track tool) {
+                <li class="tool-item">
+                  <span class="dot"></span>
+                  <span>{{ tool }}</span>
+                </li>
+              }
+            </ul>
+          }
+
+          <h3 class="tools-heading" style="margin-top: 28px;">Tags & Disciplines</h3>
+          <div class="tags-cloud">
+            @for (tag of project.tags; track tag) {
+              <span class="badge-pill">#{{ tag }}</span>
+            }
+          </div>
+
+          <div class="project-action-box">
+            <a routerLink="/contact" class="btn btn-primary" style="width: 100%;">
+              Inquire About Similar Work
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Projects Section -->
+  @if (relatedProjects.length > 0) {
+    <section class="section-padding related-section">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <span class="section-eyebrow">// MORE IN THIS CATEGORY</span>
+            <h2 class="section-title">Related Projects</h2>
+          </div>
+          <a routerLink="/portfolio" class="btn btn-outline-accent">
+            <span>Browse All</span>
+          </a>
+        </div>
+
+        <div class="portfolio-grid">
+          @for (rel of relatedProjects; track rel.id) {
+            <app-project-card 
+              [project]="rel" 
+              (viewMedia)="openMediaModal($event)">
+            </app-project-card>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Global CTA -->
+  <app-cta-section></app-cta-section>
+
+  <!-- Reusable Media Lightbox Modal -->
+  <app-media-modal
+    [project]="activeModalProject"
+    [isOpen]="isModalOpen"
+    (close)="closeMediaModal()">
+  </app-media-modal>
+}

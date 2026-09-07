@@ -1,0 +1,115 @@
+<app-page-header
+  eyebrow="// BIOGRAPHY & CREATIVE PHILOSOPHY"
+  title="Driven by Precision & Cinematic Flow"
+  subtitle="Meet Nallamuthu M (Sabu) — Video Editor and Brand Visual Designer with over 6 years of experience shaping high-impact creative work.">
+</app-page-header>
+
+<section class="bio-section section-padding">
+  <div class="container">
+    <div class="bio-grid">
+      <!-- Portrait & Details Card -->
+      <div class="bio-portrait-col">
+        <div class="portrait-card glass-panel">
+          <div class="img-wrapper">
+            <img [src]="config.avatar" [alt]="config.creatorName" class="profile-img" />
+          </div>
+          <div class="card-info">
+            <h3 class="name">{{ config.creatorName }}</h3>
+            <span class="role">{{ config.title }}</span>
+            <span class="location">📍 {{ config.location }}</span>
+
+            <div class="cta-mini-row">
+              <a routerLink="/contact" class="btn btn-primary" style="width: 100%;">
+                <span>Contact Sabu</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio Story Content -->
+      <div class="bio-story-col">
+        <span class="section-eyebrow">// THE NARRATIVE</span>
+        <h2 class="section-title">Visuals that don't just speak—they captivate.</h2>
+        <div class="story-paragraphs">
+          <p>
+            I believe that great editing is invisible when it needs to be, and visceral when it matters most. Over the past six years, I have collaborated with production houses, marketing directors, musicians, and independent brands to transform raw vision into memorable media.
+          </p>
+          <p>
+            Whether handling high-frame-rate commercial footage, grading moody docu-series scenes, or developing distinct typographic identity systems from scratch, my philosophy remains constant: <strong>clean execution, intentional rhythm, and meticulous attention to nuance</strong>.
+          </p>
+        </div>
+
+        <!-- Technical Proficiency Stack -->
+        <div class="skills-block">
+          <h3 class="skills-heading">Technical Core & Software</h3>
+          <div class="skills-list">
+            @for (skill of skills; track skill.name) {
+              <div class="skill-row">
+                <div class="skill-info">
+                  <span class="skill-name">{{ skill.name }}</span>
+                  <span class="skill-pct">{{ skill.level }}</span>
+                </div>
+                <div class="skill-bar-track">
+                  <div class="skill-bar-fill" [style.width]="skill.level"></div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     CREATIVE PROCESS WORKFLOW
+     ========================================================================== -->
+<section class="process-section section-padding">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">// METHODOLOGY</span>
+      <h2 class="section-title">The Four-Stage Process</h2>
+      <p class="section-subtitle">
+        How every commercial piece and brand identity moves from initial concept to immaculate finish.
+      </p>
+    </div>
+
+    <div class="process-grid">
+      @for (item of processSteps; track item.step) {
+        <div class="process-card glass-panel">
+          <span class="process-num">{{ item.step }}</span>
+          <h3 class="process-title">{{ item.title }}</h3>
+          <p class="process-desc">{{ item.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     EXPERIENCE & CAREER TIMELINE
+     ========================================================================== -->
+<section class="timeline-section section-padding">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">// TRACK RECORD</span>
+      <h2 class="section-title">Career Milestones</h2>
+    </div>
+
+    <div class="timeline-wrapper">
+      @for (item of milestones; track item.year) {
+        <div class="timeline-item glass-panel">
+          <div class="timeline-year">{{ item.year }}</div>
+          <div class="timeline-content">
+            <h3 class="timeline-role">{{ item.role }}</h3>
+            <p class="timeline-desc">{{ item.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Global CTA -->
+<app-cta-section></app-cta-section>

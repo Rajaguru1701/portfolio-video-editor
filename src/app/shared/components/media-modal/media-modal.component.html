@@ -1,0 +1,60 @@
+@if (isOpen && project) {
+  <div 
+    class="modal-backdrop" 
+    (click)="onBackdropClick($event)"
+    role="dialog" 
+    aria-modal="true" 
+    [attr.aria-label]="project.title">
+    
+    <!-- Video Modal Container -->
+    @if (project.type === 'video') {
+      <div class="video-modal-card glass-card">
+        <div class="modal-top-header">
+          <h3 class="modal-head-title">{{ project.title }}</h3>
+          <button (click)="closeModal()" class="close-x-btn" aria-label="Close">✕</button>
+        </div>
+
+        <div class="video-player-frame">
+          <video 
+            [src]="project.media" 
+            controls 
+            autoplay 
+            playsinline 
+            preload="metadata"
+            class="video-element">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+
+        <div class="modal-footer-row">
+          <span class="spec-txt">9:16 Master // 60 FPS // {{ project.category }}</span>
+          <button (click)="appreciateCurrent()" class="btn-like-cut">
+            Appreciate ❤️
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- Image Expand Modal Container -->
+    @if (project.type === 'image') {
+      <div class="image-modal-card glass-card">
+        <div class="modal-top-header">
+          <h3 class="modal-head-title">{{ project.title }}</h3>
+          <button (click)="closeModal()" class="close-x-btn" aria-label="Close">✕</button>
+        </div>
+
+        <div class="image-viewer-frame">
+          <img [src]="project.media" [alt]="project.title" class="expanded-image" />
+        </div>
+
+        <div class="modal-footer-row">
+          <span class="spec-txt">{{ project.category }} // {{ project.tools ? project.tools[0] : 'Artwork' }}</span>
+          <button (click)="appreciateCurrent()" class="btn-like-cut">
+            Appreciate Artwork ❤️
+          </button>
+        </div>
+      </div>
+    }
+
+  </div>
+}

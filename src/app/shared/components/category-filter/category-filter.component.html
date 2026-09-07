@@ -1,0 +1,13 @@
+<div class="filter-bar" role="group" aria-label="Portfolio Category Filters">
+  @for (item of categories; track item.name) {
+    <button 
+      type="button" 
+      class="filter-pill" 
+      [class.active]="selectedCategory.toLowerCase() === item.name.toLowerCase()"
+      (click)="selectCategory(item.name)"
+      [attr.aria-pressed]="selectedCategory.toLowerCase() === item.name.toLowerCase()">
+      <span class="filter-name">{{ item.name }}</span>
+      <span class="filter-count">{{ item.count }}</span>
+    </button>
+  }
+</div>

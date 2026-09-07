@@ -1,0 +1,58 @@
+.cta-section {
+  padding: 80px 0 100px 0;
+  position: relative;
+}
+
+.cta-card {
+  position: relative;
+  overflow: hidden;
+  padding: 64px 48px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 230, 118, 0.25);
+  background: linear-gradient(135deg, rgba(16, 20, 28, 0.85) 0%, rgba(10, 12, 17, 0.95) 100%);
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 40px 24px;
+  }
+}
+
+.glow-orb {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: clamp(28px, 4vw, 44px);
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.cta-desc {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
