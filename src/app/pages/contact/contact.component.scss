@@ -6,20 +6,24 @@
 
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
+  }
+
+  @media (max-width: 640px) {
+    gap: 24px;
   }
 }
 
 .col-heading {
-  font-size: 26px;
+  font-size: clamp(20px, 4vw, 26px);
   margin-bottom: 12px;
 }
 
 .col-desc {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .channel-card {
@@ -157,11 +161,11 @@
   border-radius: var(--radius-lg);
 
   @media (max-width: 640px) {
-    padding: 24px;
+    padding: 20px 16px;
   }
 
   .form-heading {
-    font-size: 26px;
+    font-size: clamp(20px, 4vw, 26px);
     margin-bottom: 8px;
   }
 

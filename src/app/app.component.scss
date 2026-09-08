@@ -39,11 +39,16 @@
   bottom: 24px;
   right: 24px;
   z-index: 900;
+
+  @media (max-width: 640px) {
+    bottom: 16px;
+    right: 16px;
+  }
 }
 
 .floating-appreciate-btn {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: #0f172a;
   color: #ffffff;
@@ -55,6 +60,13 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border: none;
   cursor: pointer;
+
+  @media (max-width: 640px) {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
 
   &:hover {
     background: var(--neon-green);

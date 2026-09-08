@@ -156,31 +156,39 @@
 
   <!-- ================= IN-PLACE JUMP CUT NAV BAR ================= -->
   <div id="showcase-anchor" class="jump-nav-bar">
-    <div class="container flex-center">
-      <div class="glass-pill jump-pills-cluster">
+    <div class="container">
+      <div class="jump-filters-row">
         <button 
           (click)="jumpToSection('all')" 
-          class="btn-pill-filter"
+          class="filter-nav-chip"
           [class.active]="activeSection() === 'all'">
-          🌟 All Disciplines
+          <span class="chip-icon">🌟</span>
+          <span class="chip-text">All Works</span>
+          <span class="chip-count">{{ logoProjects.length + otherWorksProjects.length + videoProjects.length }}</span>
         </button>
         <button 
           (click)="jumpToSection('logo')" 
-          class="btn-pill-filter"
+          class="filter-nav-chip"
           [class.active]="activeSection() === 'logo'">
-          🏷️ Logo Design (4 Works)
+          <span class="chip-icon">🏷️</span>
+          <span class="chip-text">Logo Design</span>
+          <span class="chip-count">{{ logoProjects.length }}</span>
         </button>
         <button 
           (click)="jumpToSection('other')" 
-          class="btn-pill-filter"
+          class="filter-nav-chip"
           [class.active]="activeSection() === 'other'">
-          🎨 Other Works (3 Posters)
+          <span class="chip-icon">🎨</span>
+          <span class="chip-text">Other Works</span>
+          <span class="chip-count">{{ otherWorksProjects.length }}</span>
         </button>
         <button 
           (click)="jumpToSection('video')" 
-          class="btn-pill-filter"
+          class="filter-nav-chip"
           [class.active]="activeSection() === 'video'">
-          🎬 Video Editing (9:16 Cuts)
+          <span class="chip-icon">🎬</span>
+          <span class="chip-text">Video Reels</span>
+          <span class="chip-count">{{ videoProjects.length }}</span>
         </button>
       </div>
     </div>
@@ -188,7 +196,7 @@
 
   <!-- ================= SEPARATED SECTION 1: LOGO & BRAND IDENTITY (LOGO FOLDER) ================= -->
   @if (activeSection() === 'all' || activeSection() === 'logo') {
-    <section id="section-logo" class="showcase-section container">
+    <section id="section-logo" class="showcase-section">
       <div class="showcase-header">
         <div>
           <span class="tag-pill-badge">// FOLDER: LOGO DESIGN</span>
@@ -245,7 +253,7 @@
 
   <!-- ================= SEPARATED SECTION 2: OTHER WORKS / COMMERCIAL POSTERS (OTHER WORKS FOLDER) ================= -->
   @if (activeSection() === 'all' || activeSection() === 'other') {
-    <section id="section-other" class="showcase-section container">
+    <section id="section-other" class="showcase-section">
       <div class="showcase-header">
         <div>
           <span class="tag-pill-badge">// FOLDER: OTHER WORKS</span>
@@ -307,7 +315,7 @@
 
   <!-- ================= SEPARATED SECTION 3: VIDEO EDITING (9:16 REELS) ================= -->
   @if (activeSection() === 'all' || activeSection() === 'video') {
-    <section id="section-video" class="showcase-section container">
+    <section id="section-video" class="showcase-section">
       <div class="showcase-header">
         <div>
           <span class="tag-pill-badge">// SEPARATE DISCIPLINE: 9:16 REELS</span>
